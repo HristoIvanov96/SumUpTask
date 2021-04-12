@@ -3,13 +3,13 @@ package app
 
 func SortTasks(tasks []Task) []Task {
 	var sortedTasks []Task
-	addedTaskNames := make(map[string]int)
+	addedTaskNames := make(map[string]bool)
 	i := 0
-	for len(tasks) > 0{
+	for len(tasks) > 0 {
 		if tasks[i].RequiredTasks == nil ||
-			checkRequiredAreAdded(tasks[i].RequiredTasks, addedTaskNames){
+			checkRequiredTasksAreDone(tasks[i].RequiredTasks, addedTaskNames) {
 			sortedTasks = append(sortedTasks, tasks[i])
-			addedTaskNames[tasks[i].Name] = 1
+			addedTaskNames[tasks[i].Name] = true
 			tasks = removeTask(tasks, i)
 			if i > 0 {
 				i--
@@ -21,8 +21,7 @@ func SortTasks(tasks []Task) []Task {
 	return sortedTasks
 }
 
-
-func checkRequiredAreAdded(required []string, addedTaskNames map[string]int) bool {
+func checkRequiredTasksAreDone(required []string, addedTaskNames map[string]bool) bool {
 	for _, task := range required {
 		if _, ok := addedTaskNames[task]; !ok {
 			return false

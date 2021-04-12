@@ -13,3 +13,11 @@ func FormatSortedTasks(tasks []Task) []FormattedTask {
 	}
 	return formattedTasks
 }
+
+func FormatCommands(tasks []Task) string {
+	commands := "#!/usr/bin/env bash \n\n"
+	for _, task := range tasks {
+		commands += task.Command + "\n"
+	}
+	return commands
+}
