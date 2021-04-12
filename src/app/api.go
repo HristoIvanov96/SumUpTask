@@ -9,16 +9,15 @@ import (
 )
 
 func getTasks(w http.ResponseWriter, r *http.Request){
-	fmt.Fprintf(w, "Sorting tasks..")
-	fmt.Println("Endpoint Hit: getTasks")
 	var tasks Tasks
 	err := json.NewDecoder(r.Body).Decode(&tasks)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	fmt.Fprintf(w, "%+v", SortTasks(tasks.Tasks))
-
+	formattedTasks := FormatSortedTasks(SortTasks(tasks.Tasks))
+	formattedOutput, err := json.MarshalIndent(formattedTasks, "", "  ")
+	fmt.Fprintf(w, string(formattedOutput))
 }
 
 func HandleRequests() {
