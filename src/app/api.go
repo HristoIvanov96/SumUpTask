@@ -17,7 +17,7 @@ func getTasks(w http.ResponseWriter, r *http.Request){
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	fmt.Println(tasks.Tasks[0])
+	fmt.Fprintf(w, "%+v", SortTasks(tasks.Tasks))
 
 }
 
