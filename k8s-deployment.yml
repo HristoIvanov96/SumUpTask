@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: SumUpTask
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: SumUpTask
+  template:
+    metadata:
+      labels:
+        app: SumUpTask
+    spec:
+      containers:
+        - name: SumUpTask
+          image: SumUpTask:latest
+          ports:
+            - containerPort: 4000
+          resources:
+            requests:
+              cpu: 500m
