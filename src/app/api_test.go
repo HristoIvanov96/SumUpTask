@@ -5,7 +5,6 @@ import (
 	"github.com/gorilla/mux"
 	"net/http"
 	"net/http/httptest"
-	"os"
 	"testing"
 	"time"
 )
@@ -28,9 +27,7 @@ var router = mux.NewRouter()
 func TestMain(m *testing.M) {
 	go HandleRequests(router, ":4000")
 
-	code := m.Run()
-
-	os.Exit(code)
+	m.Run()
 }
 
 func TestSortTasksEndpoint(t *testing.T) {

@@ -23,7 +23,11 @@ func sortTasks(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	formattedTasks := FormatSortedTasks(SortTasks(tasks.Tasks))
+	formattedTasks, err := FormatSortedTasks(SortTasks(tasks.Tasks))
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
 	formattedOutput, err := json.MarshalIndent(formattedTasks, "", "  ")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
@@ -40,7 +44,12 @@ func bash(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	sortedTasks := SortTasks(tasks.Tasks)
-	fmt.Fprintf(w, FormatCommands(sortedTasks))
+	output, err := FormatCommands(sortedTasks)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	fmt.Fprintf(w, output)
 }
 
 

@@ -1,6 +1,7 @@
 package app
 
 import (
+	"errors"
 	"reflect"
 	"testing"
 )
@@ -11,7 +12,7 @@ func TestFormatSortedTasks(t *testing.T) {
 		Task{Name: "2", Command: "second"},
 	}
 
-	result := FormatSortedTasks(input)
+	result, _ := FormatSortedTasks(input)
 	expected := []FormattedTask{
 		FormattedTask{Name: "1", Command: "first"},
 		FormattedTask{Name: "2", Command: "second"},
@@ -26,10 +27,10 @@ func TestFormatSortedTasks(t *testing.T) {
 func TestFormatSortedTasksEmpty(t *testing.T) {
 	var input []Task
 
-	result := FormatSortedTasks(input)
-	var expected []FormattedTask
-	if !reflect.DeepEqual(result, expected) {
-		t.Errorf("FormatSortedTasks failed, expected %v, got %v", expected, result)
+	_, err := FormatSortedTasks(input)
+	expected := errors.New("please add tasks in the request body")
+	if err.Error() != expected.Error() {
+		t.Errorf("FormatSortedTasks failed, expected %v, got %v", expected, err)
 	} else {
 		t.Logf("FormatSortedTasks success")
 	}
@@ -41,7 +42,7 @@ func TestFormatCommands(t *testing.T) {
 		Task{Name: "2", Command: "second"},
 	}
 
-	result := FormatCommands(input)
+	result, _:= FormatCommands(input)
 	expected := "#!/usr/bin/env bash \n\nfirst\nsecond\n"
 	if result != expected {
 		t.Errorf("FormatCommands failed, expected %v, got %v", expected, result)
@@ -53,10 +54,10 @@ func TestFormatCommands(t *testing.T) {
 func TestFormatCommandsEmpty(t *testing.T) {
 	var input []Task
 
-	result := FormatCommands(input)
-	expected := ""
-	if result != expected {
-		t.Errorf("FormatCommands failed, expected %v, got %v", expected, result)
+	_, err := FormatCommands(input)
+	expected := errors.New("please add tasks in the request body")
+	if err.Error() != expected.Error() {
+		t.Errorf("FormatCommands failed, expected %v, got %v", expected, err)
 	} else {
 		t.Logf("FormatCommands success")
 	}
