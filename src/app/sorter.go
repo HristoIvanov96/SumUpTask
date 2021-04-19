@@ -1,15 +1,13 @@
 package app
 
-
 func SortTasks(tasks []Task) []Task {
 	var sortedTasks []Task
-	addedTaskNames := make(map[string]bool)
+	doneTasks := make(map[string]bool)
 	i := 0
 	for len(tasks) > 0 {
-		if tasks[i].RequiredTasks == nil ||
-			checkRequiredTasksAreDone(tasks[i].RequiredTasks, addedTaskNames) {
+		if checkRequiredTasksAreDone(tasks[i].RequiredTasks, doneTasks) {
 			sortedTasks = append(sortedTasks, tasks[i])
-			addedTaskNames[tasks[i].Name] = true
+			doneTasks[tasks[i].Name] = true
 			tasks = removeTask(tasks, i)
 			if i > 0 {
 				i--
@@ -21,9 +19,9 @@ func SortTasks(tasks []Task) []Task {
 	return sortedTasks
 }
 
-func checkRequiredTasksAreDone(required []string, addedTaskNames map[string]bool) bool {
+func checkRequiredTasksAreDone(required []string, doneTasks map[string]bool) bool {
 	for _, task := range required {
-		if _, ok := addedTaskNames[task]; !ok {
+		if !doneTasks[task] {
 			return false
 		}
 	}

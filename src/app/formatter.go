@@ -15,6 +15,9 @@ func FormatSortedTasks(tasks []Task) []FormattedTask {
 }
 
 func FormatCommands(tasks []Task) string {
+	if len(tasks) == 0 {
+		return ""
+	}
 	commands := "#!/usr/bin/env bash \n\n"
 	for _, task := range tasks {
 		commands += task.Command + "\n"

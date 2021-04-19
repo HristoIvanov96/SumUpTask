@@ -8,11 +8,11 @@ import (
 	"net/http"
 )
 
-func HandleRequests() {
-	myRouter := mux.NewRouter().StrictSlash(true)
-	myRouter.HandleFunc("/sortTasks", sortTasks)
-	myRouter.HandleFunc("/bash", bash)
-	log.Fatal(http.ListenAndServe(":4000", myRouter))
+func HandleRequests(router *mux.Router, portNumber string) {
+	router.HandleFunc("/sortTasks", sortTasks)
+	router.HandleFunc("/bash", bash)
+	fmt.Printf("Serving requests ...")
+	log.Fatal(http.ListenAndServe(portNumber, router))
 }
 
 func sortTasks(w http.ResponseWriter, r *http.Request) {
