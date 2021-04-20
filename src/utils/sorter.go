@@ -1,7 +1,11 @@
-package main
+package utils
 
-func SortTasks(tasks []Task) []Task {
-	var sortedTasks []Task
+import (
+	"SumUpTask/models"
+)
+
+func SortTasks(tasks []models.Task) []models.Task {
+	var sortedTasks []models.Task
 	doneTasks := make(map[string]bool)
 	i := 0
 
@@ -32,9 +36,9 @@ func checkRequiredTasksAreDone(required []string, doneTasks map[string]bool) boo
 	return true
 }
 
-func removeTask(tasks []Task, index int) []Task {
+func removeTask(tasks []models.Task, index int) []models.Task {
 	tasks[index] = tasks[len(tasks)-1]
-	tasks[len(tasks)-1] = Task{}
+	tasks[len(tasks)-1] = models.Task{}
 	tasks = tasks[:len(tasks)-1]
 	return tasks
 }

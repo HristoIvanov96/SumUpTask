@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: SumUpTask
+  name: task-sorter
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: SumUpTask
+      app: task-sorter
   template:
     metadata:
       labels:
-        app: SumUpTask
+        app: task-sorter
     spec:
       containers:
-        - name: SumUpTask
-          image: SumUpTask:latest
+        - name: task-sorter
+          image: task-sorter:latest
           ports:
             - containerPort: 4000
           resources:

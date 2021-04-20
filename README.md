@@ -16,7 +16,7 @@ go build -o main
 This will compile and run the main file.
 ## Run app in Docker
 
-This project contains a `Dockerfile` so it could be run as a container. In order to do that first
+This project contains a `Dockerfile` so it could be run in a container. In order to do that first
 an image has to be built:
 ```bash
 docker build -t task-sorter .
@@ -29,8 +29,8 @@ docker run -p 4000:4000 task-sorter
 ## Testing endpoints
 There are two endpoints available:
 ```bigquery
-/tasks/json -> to receive json representation of the sorted tasks
-/tasks/bash -> to receive a sequence of the sorted bash commands of the tasks
+POST /tasks/json --> to receive json representation of the sorted tasks
+POST /tasks/bash --> to receive a sequence of the sorted bash commands of the tasks
 ```
 You would need to make a POST request and provide a list of tasks in the body, like so:
 ```bigquery
@@ -73,7 +73,7 @@ curl --location --request POST 'localhost:4000/tasks/json' \
  ```
 
 ## Run tests
-To run the tests, navigate to src/ and run `go test`
+To run the tests, navigate to src/ and run `go test ./...`
 
 ## Kubernetes
 

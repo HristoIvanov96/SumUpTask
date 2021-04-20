@@ -1,15 +1,16 @@
-package main
+package utils
 
 import (
+	"SumUpTask/models"
 	"errors"
 	"reflect"
 	"testing"
 )
 
 func TestFormatSortedTasks(t *testing.T) {
-	input := []Task{
-		Task{Name: "1", Command: "first", RequiredTasks: []string{"2"}},
-		Task{Name: "2", Command: "second"},
+	input := []models.Task{
+		models.Task{Name: "1", Command: "first", RequiredTasks: []string{"2"}},
+		models.Task{Name: "2", Command: "second"},
 	}
 
 	result, _ := FormatSortedTasks(input)
@@ -25,7 +26,7 @@ func TestFormatSortedTasks(t *testing.T) {
 }
 
 func TestFormatSortedTasksEmpty(t *testing.T) {
-	var input []Task
+	var input []models.Task
 
 	_, err := FormatSortedTasks(input)
 	expected := errors.New("please add tasks in the request body")
@@ -37,14 +38,14 @@ func TestFormatSortedTasksEmpty(t *testing.T) {
 }
 
 func TestFormatCommands(t *testing.T) {
-	input := []Task{
-		Task{Name: "1", Command: "first", RequiredTasks: []string{"2"}},
-		Task{Name: "2", Command: "second"},
+	input := []models.Task{
+		models.Task{Name: "1", Command: "first", RequiredTasks: []string{"2"}},
+		models.Task{Name: "2", Command: "second"},
 	}
 
 	result, _:= FormatCommands(input)
 	expected := "#!/usr/bin/env bash \n\nfirst\nsecond\n"
-	if result != expected {
+	if *result != expected {
 		t.Errorf("FormatCommands failed, expected %v, got %v", expected, result)
 	} else {
 		t.Logf("FormatCommands success")
@@ -52,7 +53,7 @@ func TestFormatCommands(t *testing.T) {
 }
 
 func TestFormatCommandsEmpty(t *testing.T) {
-	var input []Task
+	var input []models.Task
 
 	_, err := FormatCommands(input)
 	expected := errors.New("please add tasks in the request body")

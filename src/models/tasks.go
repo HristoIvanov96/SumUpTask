@@ -1,4 +1,4 @@
-package main
+package models
 
 type Tasks struct {
 	Tasks []Task `json:"tasks"`

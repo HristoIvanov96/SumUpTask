@@ -1,21 +1,22 @@
-package main
+package utils
 
 import (
+	"SumUpTask/models"
 	"reflect"
 	"testing"
 )
 
 
 func TestSortTasksAreSorted(t *testing.T) {
-	input := []Task{
-		Task{Name: "1", Command: "first", RequiredTasks: []string{"2"}},
-		Task{Name: "2", Command: "second"},
+	input := []models.Task{
+		models.Task{Name: "1", Command: "first", RequiredTasks: []string{"2"}},
+		models.Task{Name: "2", Command: "second"},
 	}
 
 	result := SortTasks(input)
-	expected := []Task{
-		Task{Name: "2", Command: "second"},
-		Task{Name: "1", Command: "first", RequiredTasks: []string{"2"}},
+	expected := []models.Task{
+		models.Task{Name: "2", Command: "second"},
+		models.Task{Name: "1", Command: "first", RequiredTasks: []string{"2"}},
 	}
 	if !reflect.DeepEqual(result, expected) {
 		t.Errorf("SortTasks failed, expected %v, got %v", expected, result)
@@ -25,15 +26,15 @@ func TestSortTasksAreSorted(t *testing.T) {
 }
 
 func TestSortTasksAreAlreadySorted(t *testing.T) {
-	input := []Task{
-		Task{Name: "1", Command: "first"},
-		Task{Name: "2", Command: "second", RequiredTasks: []string{"1"}},
+	input := []models.Task{
+		models.Task{Name: "1", Command: "first"},
+		models.Task{Name: "2", Command: "second", RequiredTasks: []string{"1"}},
 	}
 
 	result := SortTasks(input)
-	expected := []Task{
-		Task{Name: "1", Command: "first"},
-		Task{Name: "2", Command: "second", RequiredTasks: []string{"1"}},
+	expected := []models.Task{
+		models.Task{Name: "1", Command: "first"},
+		models.Task{Name: "2", Command: "second", RequiredTasks: []string{"1"}},
 	}
 	if !reflect.DeepEqual(result, expected) {
 		t.Errorf("SortTasks failed, expected %v, got %v", expected, result)
@@ -43,10 +44,10 @@ func TestSortTasksAreAlreadySorted(t *testing.T) {
 }
 
 func TestSortTasksReturnsEmpty(t *testing.T) {
-	var input []Task
+	var input []models.Task
 
 	result := SortTasks(input)
-	var expected []Task
+	var expected []models.Task
 	if !reflect.DeepEqual(result, expected) {
 		t.Errorf("SortTasks failed, expected %v, got %v", expected, result)
 	} else {
@@ -94,14 +95,14 @@ func TestCheckRequiredTasksAreDoneEmpty(t *testing.T) {
 }
 
 func TestRemoveTask(t *testing.T) {
-	inputTasks := []Task{
-		Task{Name: "1", Command: "first"},
-		Task{Name: "2", Command: "second", RequiredTasks: []string{"1"}},
+	inputTasks := []models.Task{
+		models.Task{Name: "1", Command: "first"},
+		models.Task{Name: "2", Command: "second", RequiredTasks: []string{"1"}},
 	}
 
 	result := removeTask(inputTasks, 0)
-	expected := []Task{
-		Task{Name: "2", Command: "second", RequiredTasks: []string{"1"}},
+	expected := []models.Task{
+		models.Task{Name: "2", Command: "second", RequiredTasks: []string{"1"}},
 	}
 	if !reflect.DeepEqual(result, expected) {
 		t.Errorf("RemoveTask failed, expected %v, got %v", expected, result)

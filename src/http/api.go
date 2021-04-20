@@ -1,6 +1,8 @@
-package main
+package http
 
 import (
+	"SumUpTask/models"
+	"SumUpTask/utils"
 	"encoding/json"
 	"fmt"
 	"github.com/gorilla/mux"
@@ -17,7 +19,7 @@ func HandleRequests(router *mux.Router, portNumber string) {
 }
 
 func sortTasks(w http.ResponseWriter, r *http.Request) {
-	var tasks Tasks
+	var tasks models.Tasks
 	//Decode tasks from request body
 	err := json.NewDecoder(r.Body).Decode(&tasks)
 	if err != nil {
@@ -26,7 +28,7 @@ func sortTasks(w http.ResponseWriter, r *http.Request) {
 	}
 
 	//Sort and format tasks
-	formattedTasks, err := FormatSortedTasks(SortTasks(tasks.Tasks))
+	formattedTasks, err := utils.FormatSortedTasks(utils.SortTasks(tasks.Tasks))
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
@@ -42,7 +44,7 @@ func sortTasks(w http.ResponseWriter, r *http.Request) {
 }
 
 func outputBashCommands(w http.ResponseWriter, r *http.Request) {
-	var tasks Tasks
+	var tasks models.Tasks
 	//Decode tasks from request body
 	err := json.NewDecoder(r.Body).Decode(&tasks)
 	if err != nil {
@@ -51,13 +53,13 @@ func outputBashCommands(w http.ResponseWriter, r *http.Request) {
 	}
 
 	//Return response with sorted and formatted tasks
-	sortedTasks := SortTasks(tasks.Tasks)
-	output, err := FormatCommands(sortedTasks)
+	sortedTasks := utils.SortTasks(tasks.Tasks)
+	output, err := utils.FormatCommands(sortedTasks)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	fmt.Fprintf(w, output)
+	fmt.Fprintf(w, *output)
 }
 
 
