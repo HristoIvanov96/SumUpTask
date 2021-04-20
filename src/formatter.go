@@ -2,6 +2,7 @@ package main
 
 import "errors"
 
+//Using a struct to format the response
 type FormattedTask struct {
 	Name string
 	Command string
@@ -10,6 +11,8 @@ type FormattedTask struct {
 
 func FormatSortedTasks(tasks []Task) ([]FormattedTask, error) {
 	var formattedTasks []FormattedTask
+
+	//Format sorted tasks
 	for _, task := range tasks {
 		formattedTasks = append(formattedTasks, FormattedTask{task.Name, task.Command})
 	}
@@ -23,6 +26,7 @@ func FormatCommands(tasks []Task) (string, error) {
 	if len(tasks) == 0 {
 		return "", errors.New("please add tasks in the request body")
 	}
+	//Start with the first line of the bash script and add all commands
 	commands := "#!/usr/bin/env bash \n\n"
 	for _, task := range tasks {
 		commands += task.Command + "\n"

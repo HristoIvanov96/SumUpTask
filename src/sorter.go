@@ -4,6 +4,9 @@ func SortTasks(tasks []Task) []Task {
 	var sortedTasks []Task
 	doneTasks := make(map[string]bool)
 	i := 0
+
+	//Iterate over the tasks and check if the prerequisite ones are done
+	//If they are add it to done and remove from list
 	for len(tasks) > 0 {
 		if checkRequiredTasksAreDone(tasks[i].RequiredTasks, doneTasks) {
 			sortedTasks = append(sortedTasks, tasks[i])
@@ -19,6 +22,7 @@ func SortTasks(tasks []Task) []Task {
 	return sortedTasks
 }
 
+//Check if all required tasks for a given one are finished
 func checkRequiredTasksAreDone(required []string, doneTasks map[string]bool) bool {
 	for _, task := range required {
 		if !doneTasks[task] {
