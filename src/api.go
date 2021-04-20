@@ -9,8 +9,8 @@ import (
 )
 
 func HandleRequests(router *mux.Router, portNumber string) {
-	router.HandleFunc("/sortTasks", sortTasks)
-	router.HandleFunc("/bash", bash)
+	router.HandleFunc("/tasks/json", sortTasks)
+	router.HandleFunc("/tasks/bash", bash)
 	fmt.Printf("Serving requests ...")
 	log.Fatal(http.ListenAndServe(portNumber, router))
 }

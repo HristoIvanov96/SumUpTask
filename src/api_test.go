@@ -51,7 +51,7 @@ func TestSortTasksEndpoint(t *testing.T) {
 
 	// Test fails without sleep, not sure why
 	time.Sleep(time.Millisecond)
-	req, _ := http.NewRequest("POST", "/sortTasks", bytes.NewBuffer(jsonBody))
+	req, _ := http.NewRequest("POST", "/tasks/json", bytes.NewBuffer(jsonBody))
 	response := executeRequest(req, router)
 
 	checkResponseCode(t, http.StatusOK, response.Code)
@@ -90,7 +90,7 @@ func TestBashEndpoint(t *testing.T) {
 }
 `)
 
-	req, _ := http.NewRequest("POST", "/bash", bytes.NewBuffer(jsonBody))
+	req, _ := http.NewRequest("POST", "/tasks/bash", bytes.NewBuffer(jsonBody))
 	response := executeRequest(req, router)
 
 	checkResponseCode(t, http.StatusOK, response.Code)
