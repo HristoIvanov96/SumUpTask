@@ -8,8 +8,12 @@ This project is an HTTP task processing app written in Go 1.15. This application
 
 ## Run app outside of Docker
 
-In order to run the go app navigate to src/ and then run `go run main.go` This will compile and run the main file.
-
+In order to run the go app navigate to src/ and then run:
+```
+go build -o main 
+./main
+```
+This will compile and run the main file.
 ## Run app in Docker
 
 This project contains a `Dockerfile` so it could be run as a container. In order to do that first
