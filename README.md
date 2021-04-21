@@ -17,7 +17,7 @@ This will compile and run the main file.
 ## Run app in Docker
 
 This project contains a `Dockerfile` so it could be run in a container. In order to do that first
-an image has to be built:
+an image has to be built. Navigate to the root folder of the project and run:
 ```bash
 docker build -t task-sorter .
 ```
